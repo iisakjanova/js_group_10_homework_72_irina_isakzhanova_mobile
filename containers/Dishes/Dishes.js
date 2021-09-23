@@ -1,17 +1,19 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, Button, ScrollView, SafeAreaView, ActivityIndicator} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
+import {StatusBar} from "expo-status-bar";
 
 import {getDishes} from "../../store/actions/dishesActions";
 import Dish from "../../components/Dish/Dish";
-import {addDishToCart} from "../../store/actions/ordersActions";
-import {StatusBar} from "expo-status-bar";
+import {addDishToCart, showModal} from "../../store/actions/ordersActions";
+import PurchaseModal from "../../components/Modal/PurchaseModal";
 
 const Dishes = () => {
     const dispatch = useDispatch();
     const dishes = useSelector(state => state.dishes.dishes);
     const loading = useSelector(state => state.dishes.loading);
     const order = useSelector(state => state.orders.order);
+    const showPurchaseModal = useSelector(state => state.orders.showModal);
 
     useEffect(() => {
         (async () => {
@@ -31,8 +33,21 @@ const Dishes = () => {
 
     const total = calculateTotal(order);
 
+    const handlePurchasing = () => {
+        dispatch(showModal(true));
+    };
+
+    const purchaseCancelHandler = () => {
+        dispatch(showModal(false));
+    };
+
     return (
         <SafeAreaView style={styles.container}>
+            <PurchaseModal
+                visible={showPurchaseModal}
+                invisible={purchaseCancelHandler}
+                orderData={order}
+            />
             {loading
                 ?
                 <ActivityIndicator size="large" />
@@ -60,7 +75,7 @@ const Dishes = () => {
                 style={styles.container}
                 title="Checkout"
                 color="#f194ff"
-                // onPress={}
+                onPress={handlePurchasing}
             />
         </SafeAreaView>
     );
@@ -80,7 +95,6 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: 50,
-
     },
     total: {
         padding: 10,

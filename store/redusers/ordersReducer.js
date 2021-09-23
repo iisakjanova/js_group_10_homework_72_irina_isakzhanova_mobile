@@ -1,10 +1,12 @@
 import {
-    ADD_DISH_TO_CART
+    ADD_DISH_TO_CART,
+    SHOW_MODAL
 } from "../actions/ordersActions";
 
 const initialState = {
     order: '',
     loading: false,
+    showModal: false,
 };
 
 const ordersReducer = (state = initialState, action) => {
@@ -34,6 +36,10 @@ const ordersReducer = (state = initialState, action) => {
                         totalPrice: state.order[action.payload.id].totalPrice + action.payload.price,
                     },
                 },
+            };
+        case SHOW_MODAL:
+            return {
+                ...state, showModal: action.payload
             };
         default:
             return state;
