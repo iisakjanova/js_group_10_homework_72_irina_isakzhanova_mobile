@@ -1,5 +1,6 @@
 import {
     ADD_DISH_TO_CART,
+    REMOVE_DISH_FROM_CART,
     SHOW_MODAL
 } from "../actions/ordersActions";
 
@@ -36,6 +37,13 @@ const ordersReducer = (state = initialState, action) => {
                         totalPrice: state.order[action.payload.id].totalPrice + action.payload.price,
                     },
                 },
+            };
+        case REMOVE_DISH_FROM_CART:
+            const {[action.payload]: _, ...restDishes} = state.order;
+
+            return {
+                ...state,
+                order: restDishes,
             };
         case SHOW_MODAL:
             return {

@@ -6,7 +6,7 @@ import {StatusBar} from "expo-status-bar";
 import {getDishes} from "../../store/actions/dishesActions";
 import Dish from "../../components/Dish/Dish";
 import {addDishToCart, showModal} from "../../store/actions/ordersActions";
-import PurchaseModal from "../../components/Modal/PurchaseModal";
+import PurchaseModal from "../PurchaseModal/PurchaseModal";
 
 const Dishes = () => {
     const dispatch = useDispatch();
@@ -33,20 +33,15 @@ const Dishes = () => {
 
     const total = calculateTotal(order);
 
-    const handlePurchasing = () => {
+    const handleShowModal = () => {
         dispatch(showModal(true));
-    };
-
-    const purchaseCancelHandler = () => {
-        dispatch(showModal(false));
     };
 
     return (
         <SafeAreaView style={styles.container}>
             <PurchaseModal
                 visible={showPurchaseModal}
-                invisible={purchaseCancelHandler}
-                orderData={order}
+                total={total}
             />
             {loading
                 ?
@@ -75,7 +70,7 @@ const Dishes = () => {
                 style={styles.container}
                 title="Checkout"
                 color="#f194ff"
-                onPress={handlePurchasing}
+                onPress={handleShowModal}
             />
         </SafeAreaView>
     );
