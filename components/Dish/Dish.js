@@ -7,7 +7,7 @@ const Dish = (props) => {
     return (
         <TouchableOpacity style={styles.item} onPress={props.onAdd}>
             <Image source={{uri: image}} style={styles.img}/>
-            <Text>{props.title}</Text>
+            <Text style={styles.title}>{props.title}</Text>
             <Text>{props.price}KGS</Text>
         </TouchableOpacity>
     );
@@ -15,17 +15,19 @@ const Dish = (props) => {
 
 const styles = StyleSheet.create({
     item: {
+        flex: 1,
         justifyContent: "space-between",
         flexDirection: "row",
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
         borderWidth: 1,
-        height: '30%'
+    },
+    title: {
+        height: 80,
     },
     img: {
         width: 100,
-        height: 'auto',
     },
 });
 
