@@ -3,6 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity} from "react-native";
 
 const Dish = (props) => {
     const image = props.image;
+
     return (
         <TouchableOpacity style={styles.item} onPress={props.onAdd}>
             <Image source={{uri: image}} style={styles.img}/>

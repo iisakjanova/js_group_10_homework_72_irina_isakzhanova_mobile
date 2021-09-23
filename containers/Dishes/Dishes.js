@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     },
     view: {
         flexGrow: 1,
-        backgroundColor: 'pink',
         marginHorizontal: 20,
     },
     btn: {

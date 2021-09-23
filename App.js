@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
@@ -20,14 +19,12 @@ const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(thunk)
 ));
 
-
 export default () => {
     return (
         <Provider store={store}>
             <View style={styles.container}>
                 <Text>Turtle Pizza</Text>
                     <Dishes />
-                <StatusBar style="auto"/>
             </View>
         </Provider>
     );
