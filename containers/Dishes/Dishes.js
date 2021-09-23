@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, Button, ScrollView, SafeAreaView} from "react-native";
+import {StyleSheet, Text, Button, ScrollView, SafeAreaView, ActivityIndicator} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 
 import {getDishes} from "../../store/actions/dishesActions";
@@ -33,22 +33,27 @@ const Dishes = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.view}>
-                {Object.keys(dishes).map(key => {
-                    const title = dishes[key].title;
-                    const price = Number(dishes[key].price);
+            {loading
+                ?
+                <ActivityIndicator size="large" />
+                :
+                <ScrollView style={styles.view}>
+                    {Object.keys(dishes).map(key => {
+                        const title = dishes[key].title;
+                        const price = Number(dishes[key].price);
 
-                    return (
-                        <Dish
-                            key={key}
-                            image={dishes[key].image}
-                            title={title}
-                            price={price}
-                            onAdd={() => handleAddDishToCart({title, price, id: key})}
-                        />
-                    );
-                })}
-            </ScrollView>
+                        return (
+                            <Dish
+                                key={key}
+                                image={dishes[key].image}
+                                title={title}
+                                price={price}
+                                onAdd={() => handleAddDishToCart({title, price, id: key})}
+                            />
+                        );
+                    })}
+                </ScrollView>
+            }
             <StatusBar style="auto"/>
             <Text style={styles.total}>Order total {total} KGS</Text>
             <Button
