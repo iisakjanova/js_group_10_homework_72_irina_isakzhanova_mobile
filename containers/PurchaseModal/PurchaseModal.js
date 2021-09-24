@@ -19,10 +19,12 @@ const PurchaseModal = (props) => {
 
     const handleCloseModal = () => {
         dispatch(showModal(false));
+        dispatch(initOrderData());
     };
 
     const handlePurchase = async () => {
         await dispatch(createOrder());
+        dispatch(showModal(false));
         dispatch(initOrderData());
     };
 

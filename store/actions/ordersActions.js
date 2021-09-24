@@ -35,7 +35,7 @@ export const createOrder = () => {
 
         try {
             dispatch(submitOrderRequest());
-            await axiosApi.post('/orders.json', order.order);
+            await axiosApi.post('/orders.json', order);
             dispatch(submitOrderSuccess());
         } catch (error) {
             dispatch(submitOrderFailure(error));
